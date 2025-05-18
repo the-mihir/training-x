@@ -10,8 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "TrainingX UI - AI Training Platform",
-  description: "Take your first step into the world of AI with TrainingX.AI",
-    generator: 'v0.dev'
+  description: "Take your first step into the world of AI with TrainingX.AI"
 }
 
 export default function RootLayout({

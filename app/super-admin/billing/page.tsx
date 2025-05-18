@@ -237,45 +237,98 @@ export default function Billing() {
           <TabsTrigger value="reports">Financial Reports</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="transactions">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle>Recent Transactions</CardTitle>
-              <CardDescription>
-                View and manage payment transactions.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row gap-4 mb-6 items-start md:items-center justify-between">
-                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                  <div className="relative w-full md:w-80">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
-                    <Input
-                      type="search"
-                      placeholder="Search transactions..."
-                      className="w-full pl-8"
-                    />
+        <TabsContent value="transactions" className="space-y-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              <Input placeholder="Search transactions..." className="w-64" />
+            </div>
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4" />
+              <span>Filters</span>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {transactions.map((transaction) => (
+              <div key={transaction.id} className="rounded-lg border p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium">{transaction.description}</h3>
+                    <p className="text-sm text-gray-500">{transaction.user}</p>
                   </div>
-                  <Button variant="outline" className="flex items-center gap-1">
-                    <Filter className="h-4 w-4" />
-                    <span>Filter</span>
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      transaction.status === "Completed" ? "bg-green-100 text-green-800" : 
+                      "bg-red-100 text-red-800"
+                    }`}>
+                      {transaction.status}
+                    </span>
+                    <span className="text-sm font-medium">
+                      ${transaction.amount.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
-                <Button variant="outline" className="flex items-center gap-1 w-full sm:w-auto">
-                  <Download className="h-4 w-4" />
-                  <span>Export</span>
-                </Button>
+                <div className="mt-2 text-sm text-gray-500">
+                  <p>Transaction ID: {transaction.id}</p>
+                  <p>Payment Method: {transaction.paymentMethod}</p>
+                  <p>Date: {new Date(transaction.date).toLocaleDateString()}</p>
+                </div>
               </div>
+            ))}
+          </div>
+        </TabsContent>
 
-              <div className="rounded-md border">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                        <th className="py-3 px-4 text-left font-medium">ID</th>
-                        <th className="py-3 px-4 text-left font-medium">User</th>
-                        <th className="py-3 px-4 text-left font-medium">Amount</th>
-                        <th className="py-3 px-4 text-left font-medium">Description</th>
-                        <th className="py-3 px-4 text-left font-medium">Status</th>
-                        <th className="py-3 px-4 text-left font-medium">Date</th>
-                      \
+        <TabsContent value="invoices" className="space-y-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              <Input placeholder="Search invoices..." className="w-64" />
+            </div>
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4" />
+              <span>Filters</span>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {invoices.map((invoice) => (
+              <div key={invoice.id} className="rounded-lg border p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium">{invoice.description}</h3>
+                    <p className="text-sm text-gray-500">{invoice.user}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      invoice.status === "Paid" ? "bg-green-100 text-green-800" : 
+                      "bg-red-100 text-red-800"
+                    }`}>
+                      {invoice.status}
+                    </span>
+                    <span className="text-sm font-medium">
+                      ${invoice.amount.toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-2 text-sm text-gray-500">
+                  <p>Invoice ID: {invoice.id}</p>
+                  <p>Due Date: {new Date(invoice.dueDate).toLocaleDateString()}</p>
+                  <p>Date: {new Date(invoice.date).toLocaleDateString()}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="subscriptions" className="space-y-4">
+          {/* Subscriptions content */}
+        </TabsContent>
+
+        <TabsContent value="reports" className="space-y-4">
+          {/* Financial Reports content */}
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}
