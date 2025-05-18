@@ -200,30 +200,28 @@ export default function Billing() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
-            <CardTitle>Revenue Overview</CardTitle>
+            <CardTitle>Revenue Breakdown</CardTitle>
             <CardDescription>
-              Monthly revenue for the current year
+              Monthly revenue distribution by subscription type
             </CardDescription>
           </CardHeader>
-          <CardContent className="pl-2">
-            <div className="h-[240px] flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-md">
-              <BarChart className="h-16 w-16 text-gray-400" />
-              <span className="ml-2 text-gray-500 dark:text-gray-400">Revenue Chart Placeholder</span>
+          <CardContent>
+            <div className="h-[300px]">
+              {/* Chart component will go here */}
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Revenue by Plan</CardTitle>
+            <CardTitle>Payment Methods</CardTitle>
             <CardDescription>
-              Distribution of revenue by subscription plan
+              Distribution of payment methods used
             </CardDescription>
           </CardHeader>
-          <CardContent className="pl-2">
-            <div className="h-[240px] flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-md">
-              <PieChart className="h-16 w-16 text-gray-400" />
-              <span className="ml-2 text-gray-500 dark:text-gray-400">Plan Distribution Chart</span>
+          <CardContent>
+            <div className="h-[300px]">
+              {/* Chart component will go here */}
             </div>
           </CardContent>
         </Card>
@@ -236,7 +234,7 @@ export default function Billing() {
           <TabsTrigger value="subscriptions">Subscriptions</TabsTrigger>
           <TabsTrigger value="reports">Financial Reports</TabsTrigger>
         </TabsList>
-        
+
         <TabsContent value="transactions" className="space-y-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">

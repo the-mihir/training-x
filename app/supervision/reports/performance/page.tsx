@@ -203,33 +203,13 @@ export default function PerformanceReportsPage() {
                         height={32}
                         className="rounded-full"
                       />
-                      <span className="font-medium">{student.name}</span>
+                      <span>{student.name}</span>
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{student.scores.quizzes}%</span>
-                      <ScoreIndicator score={student.scores.quizzes} />
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{student.scores.assignments}%</span>
-                      <ScoreIndicator score={student.scores.assignments} />
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{student.scores.simulations}%</span>
-                      <ScoreIndicator score={student.scores.simulations} />
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <span className="font-medium">{student.scores.overall}%</span>
-                      <ScoreIndicator score={student.scores.overall} />
-                    </div>
-                  </TableCell>
+                  <TableCell>{student.scores.quizzes}%</TableCell>
+                  <TableCell>{student.scores.assignments}%</TableCell>
+                  <TableCell>{student.scores.simulations}%</TableCell>
+                  <TableCell className="text-right">{student.scores.overall}%</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -240,11 +220,33 @@ export default function PerformanceReportsPage() {
       {/* Course Performance */}
       <ReportSection
         title="Course Performance"
-        description="Performance metrics by course"
+        description="Course-wise performance metrics"
       >
-        <Tabs defaultValue="overview">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="detailed">Detailed Analysis</TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="mt-4">\
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Course</TableHead>
+                <TableHead>Average Score</TableHead>
+                <TableHead>Highest Score</TableHead>
+                <TableHead>Lowest Score</TableHead>
+                <TableHead>Completion Rate</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {coursePerformance.map((course) => (
+                <TableRow key={course.id}>
+                  <TableCell>{course.name}</TableCell>
+                  <TableCell>{course.averageScore}%</TableCell>
+                  <TableCell>{course.highestScore}%</TableCell>
+                  <TableCell>{course.lowestScore}%</TableCell>
+                  <TableCell>{course.completionRate}%</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </ReportSection>
+    </div>
+  )
+}
