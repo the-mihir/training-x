@@ -7,26 +7,22 @@ export const useMobile = () => {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768) // Adjust breakpoint as needed
+    if (typeof window === "undefined") return
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
     }
 
-    // Only run on client side
-    if (typeof window !== "undefined") {
-      // Set initial value
-      handleResize()
+    // Set initial value
+    checkMobile()
 
-      // Listen for window resize events
-      window.addEventListener("resize", handleResize)
+    // Listen for window resize events
+    window.addEventListener("resize", checkMobile)
 
-      // Clean up event listener on unmount
-      return () => {
-        window.removeEventListener("resize", handleResize)
-      }
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("resize", checkMobile)
     }
-
-    // Return empty cleanup function for SSR
-    return () => {}
   }, [])
 
   return isMobile

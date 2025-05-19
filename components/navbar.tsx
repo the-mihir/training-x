@@ -7,39 +7,53 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
-import { useMobile } from "@/hooks/use-mobile"
 import { memo, useState, useCallback, useEffect } from "react"
+
+// Create a custom hook for mobile detection that's safe for SSR
+const useSafeMobile = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Initial check
+    checkMobile()
+
+    // Add event listener
+    window.addEventListener("resize", checkMobile)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  return isMobile
+}
 
 // Wrap the component with memo
 const Navbar = memo(function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const isMobile = useMobile()
+  const isMobile = useSafeMobile()
 
   // Handle scroll event to change navbar style
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const handleScroll = () => {
-      if (typeof window !== "undefined") {
-        if (window.scrollY > 50) {
-          setScrolled(true)
-        } else {
-          setScrolled(false)
-        }
-      }
+      setScrolled(window.scrollY > 50)
     }
 
-    // Only add the event listener on the client side
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", handleScroll)
-      // Initial check
-      handleScroll()
-    }
+    window.addEventListener("scroll", handleScroll)
+    // Initial check
+    handleScroll()
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("scroll", handleScroll)
-      }
+      window.removeEventListener("scroll", handleScroll)
     }
   }, [])
 

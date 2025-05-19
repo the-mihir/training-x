@@ -19,8 +19,11 @@ const PartnersSection = lazy(() => import("@/components/landing/partners-section
 
 export default function HomeClient() {
   const [hasError, setHasError] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const handleError = () => {
       setHasError(true)
       // Log error to your monitoring service
@@ -31,6 +34,76 @@ export default function HomeClient() {
     return () => window.removeEventListener("error", handleError)
   }, [])
 
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    // Initial check
+    handleScroll()
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    let isMounted = true
+
+    const performHeavyTask = () => {
+      // Your heavy calculation logic here
+      if (isMounted) {
+        // Update state only if component is still mounted
+      }
+    }
+
+    // Use requestIdleCallback or setTimeout to defer non-critical work
+    const timeoutId = setTimeout(performHeavyTask, 100)
+
+    return () => {
+      isMounted = false
+      clearTimeout(timeoutId)
+    }
+  }, [])
+
+  const canvasRef = { current: null } // Mock canvasRef
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    if (!canvasRef.current) return
+
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    // Set canvas to full viewport height
+    const resizeCanvas = () => {
+      if (typeof window !== "undefined") {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight // Exactly 100vh
+      }
+    }
+
+    window.addEventListener("resize", resizeCanvas)
+    resizeCanvas()
+
+    // Rest of the canvas code...
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas)
+    }
+  }, [])
+
   if (hasError) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -38,7 +111,9 @@ export default function HomeClient() {
           <h2 className="text-2xl font-bold mb-4">Something went wrong</h2>
           <p className="mb-4">We're sorry, but there was an error loading this page.</p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              if (typeof window !== "undefined") window.location.reload()
+            }}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Reload Page

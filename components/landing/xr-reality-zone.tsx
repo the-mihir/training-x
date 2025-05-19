@@ -7,7 +7,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { AnimatedGridPattern } from "@/registry/magicui/animated-grid-pattern"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 const simulations = [
   {
@@ -56,14 +56,6 @@ const simulations = [
 
 export default function XRRealityZone() {
   const [activeTab, setActiveTab] = useState("electrician-simulation")
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth <= 768)
-    const handleResize = () => setIsMobile(window.innerWidth <= 768)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   return (
     <section className="py-20 bg-slate-900 text-white relative z-10 overflow-hidden">
@@ -105,7 +97,7 @@ export default function XRRealityZone() {
             <div
               className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 opacity-50 blur-md transition-all duration-500"
               style={{
-                clipPath: `inset(0 ${100 - (100 / (simulations.length / (isMobile ? 3 : 6))) * (simulations.findIndex((s) => s.id === activeTab) + 1)}% 0 ${(100 / (simulations.length / (isMobile ? 3 : 6))) * simulations.findIndex((s) => s.id === activeTab)}%)`,
+                clipPath: `inset(0 ${100 - (100 / (simulations.length / (window.innerWidth > 768 ? 6 : 3))) * (simulations.findIndex((s) => s.id === activeTab) + 1)}% 0 ${(100 / (simulations.length / (window.innerWidth > 768 ? 6 : 3))) * simulations.findIndex((s) => s.id === activeTab)}%)`,
               }}
             />
 

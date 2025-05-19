@@ -34,7 +34,7 @@ import { motion } from "framer-motion"
 
 export default function SuperAdminDashboardClient() {
   const [timeRange, setTimeRange] = useState("30days")
-  
+
   // Mock data for revenue chart
   const revenueData = [
     { name: "Jan", revenue: 4000, target: 3000 },
@@ -50,7 +50,7 @@ export default function SuperAdminDashboardClient() {
     { name: "Nov", revenue: 8500, target: 8000 },
     { name: "Dec", revenue: 10000, target: 8000 },
   ]
-  
+
   // Mock data for user acquisition
   const userAcquisitionData = [
     { name: "Jan", organic: 400, paid: 240, referral: 180 },
@@ -66,7 +66,7 @@ export default function SuperAdminDashboardClient() {
     { name: "Nov", organic: 800, paid: 450, referral: 380 },
     { name: "Dec", organic: 850, paid: 480, referral: 400 },
   ]
-  
+
   // Mock data for recent activities
   const recentActivities = [
     {
@@ -75,7 +75,7 @@ export default function SuperAdminDashboardClient() {
       action: "enrolled in",
       target: "AI Prompting Basics",
       time: "10 minutes ago",
-      avatar: "/testimonials/david-thompson.png"
+      avatar: "/testimonials/david-thompson.png",
     },
     {
       id: 2,
@@ -83,7 +83,7 @@ export default function SuperAdminDashboardClient() {
       action: "completed",
       target: "Financial Literacy",
       time: "25 minutes ago",
-      avatar: "/testimonials/sarah-johnson.png"
+      avatar: "/testimonials/sarah-johnson.png",
     },
     {
       id: 3,
@@ -91,7 +91,7 @@ export default function SuperAdminDashboardClient() {
       action: "purchased",
       target: "Premium Subscription",
       time: "1 hour ago",
-      avatar: "/testimonials/michael-chen.png"
+      avatar: "/testimonials/michael-chen.png",
     },
     {
       id: 4,
@@ -99,7 +99,7 @@ export default function SuperAdminDashboardClient() {
       action: "earned certificate for",
       target: "AI Basics",
       time: "2 hours ago",
-      avatar: "/testimonials/elena-rodriguez.png"
+      avatar: "/testimonials/elena-rodriguez.png",
     },
     {
       id: 5,
@@ -107,10 +107,10 @@ export default function SuperAdminDashboardClient() {
       action: "left a review for",
       target: "Trade Skills Course",
       time: "3 hours ago",
-      avatar: "/testimonials/jamal-williams.png"
+      avatar: "/testimonials/jamal-williams.png",
     },
   ]
-  
+
   // Mock data for top courses
   const topCourses = [
     {
@@ -175,7 +175,7 @@ export default function SuperAdminDashboardClient() {
 
       {/* Analytics Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
@@ -198,7 +198,7 @@ export default function SuperAdminDashboardClient() {
                 </div>
               </div>
               <div className="mt-4 h-2 bg-blue-100 dark:bg-blue-900/50 rounded-full overflow-hidden">
-                <div className="h-full bg-blue-600 dark:bg-blue-400 rounded-full" style={{ width: '85%' }}></div>
+                <div className="h-full bg-blue-600 dark:bg-blue-400 rounded-full" style={{ width: "85%" }}></div>
               </div>
               <div className="mt-2 flex justify-between text-xs text-muted-foreground">
                 <span>$100,000 target</span>
@@ -208,7 +208,7 @@ export default function SuperAdminDashboardClient() {
           </Card>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
@@ -244,7 +244,7 @@ export default function SuperAdminDashboardClient() {
           </Card>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.3 }}
@@ -284,7 +284,7 @@ export default function SuperAdminDashboardClient() {
           </Card>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.4 }}
@@ -312,7 +312,7 @@ export default function SuperAdminDashboardClient() {
                   <span>Current: 72%</span>
                 </div>
                 <div className="h-2 bg-amber-100 dark:bg-amber-900/50 rounded-full overflow-hidden">
-                  <div className="h-full bg-amber-600 dark:bg-amber-400 rounded-full" style={{ width: '72%' }}></div>
+                  <div className="h-full bg-amber-600 dark:bg-amber-400 rounded-full" style={{ width: "72%" }}></div>
                 </div>
               </div>
             </CardContent>
@@ -321,11 +321,7 @@ export default function SuperAdminDashboardClient() {
       </div>
 
       {/* Revenue Chart */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <Card className="border-0 shadow-lg overflow-hidden">
           <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-b">
             <div className="flex items-center justify-between">
@@ -360,8 +356,8 @@ export default function SuperAdminDashboardClient() {
                   <RechartsAreaChart data={revenueData}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="var(--color-revenue)" stopOpacity={0.1}/>
+                        <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="var(--color-revenue)" stopOpacity={0.1} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -369,19 +365,14 @@ export default function SuperAdminDashboardClient() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Area 
-                      type="monotone" 
-                      dataKey="revenue" 
-                      stroke="var(--color-revenue)" 
-                      fillOpacity={1} 
-                      fill="url(#colorRevenue)" 
+                    <Area
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="var(--color-revenue)"
+                      fillOpacity={1}
+                      fill="url(#colorRevenue)"
                     />
-                    <Area 
-                      type="monotone" 
-                      dataKey="target" 
-                      stroke="var(--color-target)" 
-                      fillOpacity={0} 
-                    />
+                    <Area type="monotone" dataKey="target" stroke="var(--color-target)" fillOpacity={0} />
                   </RechartsAreaChart>
                 </ResponsiveContainer>
               </ChartContainer>
@@ -393,11 +384,7 @@ export default function SuperAdminDashboardClient() {
       {/* Two Column Layout */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Recent Activities */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-        >
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
           <Card className="border-0 shadow-lg h-full">
             <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-b">
               <div className="flex items-center justify-between">
@@ -410,17 +397,21 @@ export default function SuperAdminDashboardClient() {
             <CardContent className="p-0">
               <div className="divide-y">
                 {recentActivities.map((activity) => (
-                  <div key={activity.id} className="flex items-start gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                  <div
+                    key={activity.id}
+                    className="flex items-start gap-4 p-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+                  >
                     <div className="h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
-                      <img 
-                        src={activity.avatar || "/placeholder.svg"} 
-                        alt={activity.user} 
+                      <img
+                        src={activity.avatar || "/placeholder.svg"}
+                        alt={activity.user}
                         className="h-full w-full object-cover"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">
-                        <span className="text-blue-600">{activity.user}</span> {activity.action} <span className="font-semibold">{activity.target}</span>
+                        <span className="text-blue-600">{activity.user}</span> {activity.action}{" "}
+                        <span className="font-semibold">{activity.target}</span>
                       </p>
                       <div className="flex items-center mt-1 text-xs text-muted-foreground">
                         <Clock className="h-3 w-3 mr-1" />
@@ -435,11 +426,7 @@ export default function SuperAdminDashboardClient() {
         </motion.div>
 
         {/* User Acquisition */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-        >
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
           <Card className="border-0 shadow-lg h-full">
             <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-b">
               <div className="flex items-center justify-between">
@@ -497,7 +484,7 @@ export default function SuperAdminDashboardClient() {
       </div>
 
       {/* Top Courses */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.2 }}
@@ -537,9 +524,11 @@ export default function SuperAdminDashboardClient() {
                         <div className="flex items-center gap-2">
                           <div className="w-24 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                             <div
-                            style={{ width: `${course.completion}%` }}
-                            className="h-full bg-blue-500 rounded-full"
-                          ></div>
+                              style={{ width: `${course.completion}%` }}
+                              className="h-full bg-blue-500 rounded-full"
+                            ></div>
+                          </div>
+                          <span>{course.completion}%</span>
                         </div>
                       </td>
                       <td className="p-4">{course.revenue}</td>
@@ -567,5 +556,5 @@ export default function SuperAdminDashboardClient() {
         </Card>
       </motion.div>
     </div>
-  );
+  )
 }

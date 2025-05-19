@@ -107,15 +107,32 @@ const coursePerformance = [
   },
 ]
 
+// Score indicator component
+function ScoreIndicator({ score }: { score: number }) {
+  let color = "bg-gray-200"
+
+  if (score >= 90) {
+    color = "bg-green-500"
+  } else if (score >= 80) {
+    color = "bg-green-400"
+  } else if (score >= 70) {
+    color = "bg-yellow-400"
+  } else if (score >= 60) {
+    color = "bg-orange-400"
+  } else {
+    color = "bg-red-500"
+  }
+
+  return <div className={`h-2 w-16 rounded-full ${color}`} />
+}
+
 export default function PerformanceReportsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Performance Reports</h1>
-          <p className="text-muted-foreground">
-            Track student performance metrics and scores
-          </p>
+          <p className="text-muted-foreground">Track student performance metrics and scores</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline">
@@ -130,10 +147,7 @@ export default function PerformanceReportsPage() {
       </div>
 
       {/* Performance Overview */}
-      <ReportSection
-        title="Performance Overview"
-        description="Summary of student performance metrics"
-      >
+      <ReportSection title="Performance Overview" description="Summary of student performance metrics">
         <div className="grid gap-4 md:grid-cols-4">
           <div className="rounded-md border p-4 text-center">
             <p className="text-3xl font-bold">82%</p>
@@ -154,9 +168,7 @@ export default function PerformanceReportsPage() {
         </div>
 
         <div className="mt-6 h-[300px] w-full rounded-md border bg-slate-50 p-4 flex items-center justify-center">
-          <p className="text-center text-muted-foreground">
-            Performance distribution chart would be displayed here
-          </p>
+          <p className="text-center text-muted-foreground">Performance distribution chart would be displayed here</p>
         </div>
       </ReportSection>
 
@@ -203,13 +215,33 @@ export default function PerformanceReportsPage() {
                         height={32}
                         className="rounded-full"
                       />
-                      <span>{student.name}</span>
+                      <span className="font-medium">{student.name}</span>
                     </div>
                   </TableCell>
-                  <TableCell>{student.scores.quizzes}%</TableCell>
-                  <TableCell>{student.scores.assignments}%</TableCell>
-                  <TableCell>{student.scores.simulations}%</TableCell>
-                  <TableCell className="text-right">{student.scores.overall}%</TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{student.scores.quizzes}%</span>
+                      <ScoreIndicator score={student.scores.quizzes} />
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{student.scores.assignments}%</span>
+                      <ScoreIndicator score={student.scores.assignments} />
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{student.scores.simulations}%</span>
+                      <ScoreIndicator score={student.scores.simulations} />
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <span className="font-medium">{student.scores.overall}%</span>
+                      <ScoreIndicator score={student.scores.overall} />
+                    </div>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -218,33 +250,132 @@ export default function PerformanceReportsPage() {
       </ReportSection>
 
       {/* Course Performance */}
+      <ReportSection title="Course Performance" description="Performance metrics by course">
+        <Tabs defaultValue="overview">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="detailed">Detailed Analysis</TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview" className="mt-4">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[250px]">Course</TableHead>
+                    <TableHead>Average Score</TableHead>
+                    <TableHead>Highest Score</TableHead>
+                    <TableHead>Lowest Score</TableHead>
+                    <TableHead className="text-right">Completion Rate</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {coursePerformance.map((course) => (
+                    <TableRow key={course.id}>
+                      <TableCell>
+                        <span className="font-medium">{course.name}</span>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">{course.averageScore}%</span>
+                          <ScoreIndicator score={course.averageScore} />
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-medium">{course.highestScore}%</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-medium">{course.lowestScore}%</span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <span className="font-medium">{course.completionRate}%</span>
+                          <div
+                            className="h-2 w-16 rounded-full bg-blue-500"
+                            style={{ width: `${(course.completionRate / 100) * 64}px` }}
+                          />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </TabsContent>
+          <TabsContent value="detailed" className="mt-4">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-md border p-4">
+                <h3 className="text-lg font-medium mb-4">Score Distribution</h3>
+                <div className="h-[250px] w-full bg-slate-50 rounded-md flex items-center justify-center">
+                  <p className="text-center text-muted-foreground">Score distribution chart would be displayed here</p>
+                </div>
+              </div>
+              <div className="rounded-md border p-4">
+                <h3 className="text-lg font-medium mb-4">Completion Trends</h3>
+                <div className="h-[250px] w-full bg-slate-50 rounded-md flex items-center justify-center">
+                  <p className="text-center text-muted-foreground">Completion trends chart would be displayed here</p>
+                </div>
+              </div>
+              <div className="rounded-md border p-4 md:col-span-2">
+                <h3 className="text-lg font-medium mb-4">Performance by Module</h3>
+                <div className="h-[250px] w-full bg-slate-50 rounded-md flex items-center justify-center">
+                  <p className="text-center text-muted-foreground">Module performance chart would be displayed here</p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </ReportSection>
+
+      {/* Improvement Recommendations */}
       <ReportSection
-        title="Course Performance"
-        description="Course-wise performance metrics"
+        title="Improvement Recommendations"
+        description="AI-generated recommendations based on performance data"
       >
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Course</TableHead>
-                <TableHead>Average Score</TableHead>
-                <TableHead>Highest Score</TableHead>
-                <TableHead>Lowest Score</TableHead>
-                <TableHead>Completion Rate</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {coursePerformance.map((course) => (
-                <TableRow key={course.id}>
-                  <TableCell>{course.name}</TableCell>
-                  <TableCell>{course.averageScore}%</TableCell>
-                  <TableCell>{course.highestScore}%</TableCell>
-                  <TableCell>{course.lowestScore}%</TableCell>
-                  <TableCell>{course.completionRate}%</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-md border p-4">
+            <h3 className="text-lg font-medium mb-2">Course Content</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <div className="h-5 w-5 rounded-full bg-amber-500 flex items-center justify-center mt-0.5">
+                  <span className="text-white text-xs">!</span>
+                </div>
+                <span>
+                  The "Financial Literacy" course has the lowest average score. Consider reviewing and simplifying
+                  complex concepts.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <div className="h-5 w-5 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
+                  <span className="text-white text-xs">✓</span>
+                </div>
+                <span>
+                  "AI Prompting Basics" is performing well with high completion rates. Consider expanding this content.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-md border p-4">
+            <h3 className="text-lg font-medium mb-2">Student Support</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <div className="h-5 w-5 rounded-full bg-amber-500 flex items-center justify-center mt-0.5">
+                  <span className="text-white text-xs">!</span>
+                </div>
+                <span>
+                  James Wilson is struggling across multiple courses. Consider scheduling a one-on-one session.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <div className="h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center mt-0.5">
+                  <span className="text-white text-xs">i</span>
+                </div>
+                <span>
+                  Several students are excelling in simulations but scoring lower on quizzes. Consider reviewing quiz
+                  format.
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </ReportSection>
     </div>

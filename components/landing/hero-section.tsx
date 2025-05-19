@@ -3,17 +3,18 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import Navbar from "@/components/navbar"
+import dynamic from "next/dynamic"
 import { MultiStepSurveyForm } from "@/components/survey/multi-step-survey-form"
 import { AnimatedGradientText } from "@/registry/magicui/animated-gradient-text"
 import { HyperText } from "@/registry/magicui/hyper-text"
 
-export default function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isSurveyOpen, setIsSurveyOpen] = useState(false)
+// Dynamically import Navbar with SSR disabled
+const Navbar = dynamic(() => import("@/components/navbar"), { ssr: false })
 
+// Create a separate StarfieldCanvas component for the canvas logic
+const StarfieldCanvas = ({ canvasRef }) => {
   useEffect(() => {
+    if (typeof window === "undefined") return
     if (!canvasRef.current) return
 
     const canvas = canvasRef.current
@@ -30,14 +31,7 @@ export default function HeroSection() {
     resizeCanvas()
 
     // Star properties
-    const stars: {
-      x: number
-      y: number
-      z: number
-      radius: number
-      color: string
-    }[] = []
-
+    const stars = []
     const STAR_COUNT = 1000
     const STAR_SPEED = 0.2
     const STAR_MAX_DEPTH = 1000
@@ -120,31 +114,26 @@ export default function HeroSection() {
     return () => {
       window.removeEventListener("resize", resizeCanvas)
     }
-  }, [])
+  }, [canvasRef])
 
-  useEffect(() => {
-    let isMounted = true
+  return null
+}
 
-    const performHeavyTask = () => {
-      // Your heavy calculation logic here
-      if (isMounted) {
-        // Update state only if component is still mounted
-      }
-    }
+// Dynamically import the StarfieldCanvas with SSR disabled
+const DynamicStarfieldCanvas = dynamic(() => Promise.resolve(StarfieldCanvas), { ssr: false })
 
-    // Use requestIdleCallback or setTimeout to defer non-critical work
-    const timeoutId = setTimeout(performHeavyTask, 100)
-
-    return () => {
-      isMounted = false
-      clearTimeout(timeoutId)
-    }
-  }, [])
+export default function HeroSection() {
+  const canvasRef = useRef(null)
+  const sectionRef = useRef(null)
+  const [isSurveyOpen, setIsSurveyOpen] = useState(false)
 
   return (
     <section ref={sectionRef} className="h-screen relative overflow-hidden">
       {/* 3D starfield canvas - fixed at 100vh */}
       <canvas ref={canvasRef} className="absolute inset-0 -z-10" style={{ display: "block" }} />
+
+      {/* Dynamically loaded canvas logic */}
+      <DynamicStarfieldCanvas canvasRef={canvasRef} />
 
       {/* Star-like aura effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-purple-900/10 -z-5"></div>

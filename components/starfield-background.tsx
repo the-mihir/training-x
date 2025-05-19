@@ -5,7 +5,10 @@ import { useEffect, useRef } from "react"
 export default function StarfieldBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
+  // Only run the animation on the client side
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     if (!canvasRef.current) return
 
     const canvas = canvasRef.current
@@ -17,9 +20,6 @@ export default function StarfieldBackground() {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight // Exactly 100vh
     }
-
-    // Only run on client side
-    if (typeof window === "undefined") return
 
     window.addEventListener("resize", resizeCanvas)
     resizeCanvas()

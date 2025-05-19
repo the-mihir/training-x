@@ -147,7 +147,7 @@ export default function Billing() {
             </p>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">Active Subscriptions</CardTitle>
@@ -163,7 +163,7 @@ export default function Billing() {
             </p>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">Average Order Value</CardTitle>
@@ -179,7 +179,7 @@ export default function Billing() {
             </p>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">Monthly Recurring Revenue</CardTitle>
@@ -200,28 +200,26 @@ export default function Billing() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
-            <CardTitle>Revenue Breakdown</CardTitle>
-            <CardDescription>
-              Monthly revenue distribution by subscription type
-            </CardDescription>
+            <CardTitle>Revenue Overview</CardTitle>
+            <CardDescription>Monthly revenue for the current year</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              {/* Chart component will go here */}
+          <CardContent className="pl-2">
+            <div className="h-[240px] flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-md">
+              <BarChart className="h-16 w-16 text-gray-400" />
+              <span className="ml-2 text-gray-500 dark:text-gray-400">Revenue Chart Placeholder</span>
             </div>
           </CardContent>
         </Card>
 
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Payment Methods</CardTitle>
-            <CardDescription>
-              Distribution of payment methods used
-            </CardDescription>
+            <CardTitle>Revenue by Plan</CardTitle>
+            <CardDescription>Distribution of revenue by subscription plan</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              {/* Chart component will go here */}
+          <CardContent className="pl-2">
+            <div className="h-[240px] flex items-center justify-center bg-gray-50 dark:bg-gray-800 rounded-md">
+              <PieChart className="h-16 w-16 text-gray-400" />
+              <span className="ml-2 text-gray-500 dark:text-gray-400">Plan Distribution Chart</span>
             </div>
           </CardContent>
         </Card>
@@ -235,96 +233,170 @@ export default function Billing() {
           <TabsTrigger value="reports">Financial Reports</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="transactions" className="space-y-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Search className="h-4 w-4" />
-              <Input placeholder="Search transactions..." className="w-64" />
-            </div>
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4" />
-              <span>Filters</span>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            {transactions.map((transaction) => (
-              <div key={transaction.id} className="rounded-lg border p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium">{transaction.description}</h3>
-                    <p className="text-sm text-gray-500">{transaction.user}</p>
+        <TabsContent value="transactions">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle>Recent Transactions</CardTitle>
+              <CardDescription>View and manage payment transactions.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col md:flex-row gap-4 mb-6 items-start md:items-center justify-between">
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                  <div className="relative w-full md:w-80">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                    <Input type="search" placeholder="Search transactions..." className="w-full pl-8" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      transaction.status === "Completed" ? "bg-green-100 text-green-800" : 
-                      "bg-red-100 text-red-800"
-                    }`}>
-                      {transaction.status}
-                    </span>
-                    <span className="text-sm font-medium">
-                      ${transaction.amount.toFixed(2)}
-                    </span>
-                  </div>
+                  <Button variant="outline" className="flex items-center gap-1">
+                    <Filter className="h-4 w-4" />
+                    <span>Filter</span>
+                  </Button>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">
-                  <p>Transaction ID: {transaction.id}</p>
-                  <p>Payment Method: {transaction.paymentMethod}</p>
-                  <p>Date: {new Date(transaction.date).toLocaleDateString()}</p>
+                <Button variant="outline" className="flex items-center gap-1 w-full sm:w-auto">
+                  <Download className="h-4 w-4" />
+                  <span>Export</span>
+                </Button>
+              </div>
+
+              <div className="rounded-md border">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                        <th className="py-3 px-4 text-left font-medium">ID</th>
+                        <th className="py-3 px-4 text-left font-medium">User</th>
+                        <th className="py-3 px-4 text-left font-medium">Amount</th>
+                        <th className="py-3 px-4 text-left font-medium">Description</th>
+                        <th className="py-3 px-4 text-left font-medium">Status</th>
+                        <th className="py-3 px-4 text-left font-medium">Date</th>
+                        <th className="py-3 px-4 text-left font-medium">Payment Method</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {transactions.map((transaction) => (
+                        <tr key={transaction.id} className="border-b border-gray-200 dark:border-gray-700">
+                          <td className="py-3 px-4">{transaction.id}</td>
+                          <td className="py-3 px-4">{transaction.user}</td>
+                          <td className="py-3 px-4">${transaction.amount.toFixed(2)}</td>
+                          <td className="py-3 px-4">{transaction.description}</td>
+                          <td className="py-3 px-4">
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                transaction.status === "Completed"
+                                  ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                  : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                              }`}
+                            >
+                              {transaction.status}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4">{transaction.date}</td>
+                          <td className="py-3 px-4">{transaction.paymentMethod}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            ))}
-          </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
-        <TabsContent value="invoices" className="space-y-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Search className="h-4 w-4" />
-              <Input placeholder="Search invoices..." className="w-64" />
-            </div>
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4" />
-              <span>Filters</span>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            {invoices.map((invoice) => (
-              <div key={invoice.id} className="rounded-lg border p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium">{invoice.description}</h3>
-                    <p className="text-sm text-gray-500">{invoice.user}</p>
+        <TabsContent value="invoices">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle>Invoices</CardTitle>
+              <CardDescription>View and manage customer invoices.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col md:flex-row gap-4 mb-6 items-start md:items-center justify-between">
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                  <div className="relative w-full md:w-80">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                    <Input type="search" placeholder="Search invoices..." className="w-full pl-8" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      invoice.status === "Paid" ? "bg-green-100 text-green-800" : 
-                      "bg-red-100 text-red-800"
-                    }`}>
-                      {invoice.status}
-                    </span>
-                    <span className="text-sm font-medium">
-                      ${invoice.amount.toFixed(2)}
-                    </span>
-                  </div>
+                  <Button variant="outline" className="flex items-center gap-1">
+                    <Filter className="h-4 w-4" />
+                    <span>Filter</span>
+                  </Button>
                 </div>
-                <div className="mt-2 text-sm text-gray-500">
-                  <p>Invoice ID: {invoice.id}</p>
-                  <p>Due Date: {new Date(invoice.dueDate).toLocaleDateString()}</p>
-                  <p>Date: {new Date(invoice.date).toLocaleDateString()}</p>
+                <Button variant="outline" className="flex items-center gap-1 w-full sm:w-auto">
+                  <Download className="h-4 w-4" />
+                  <span>Export</span>
+                </Button>
+              </div>
+
+              <div className="rounded-md border">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                        <th className="py-3 px-4 text-left font-medium">ID</th>
+                        <th className="py-3 px-4 text-left font-medium">User</th>
+                        <th className="py-3 px-4 text-left font-medium">Amount</th>
+                        <th className="py-3 px-4 text-left font-medium">Description</th>
+                        <th className="py-3 px-4 text-left font-medium">Status</th>
+                        <th className="py-3 px-4 text-left font-medium">Date</th>
+                        <th className="py-3 px-4 text-left font-medium">Due Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {invoices.map((invoice) => (
+                        <tr key={invoice.id} className="border-b border-gray-200 dark:border-gray-700">
+                          <td className="py-3 px-4">{invoice.id}</td>
+                          <td className="py-3 px-4">{invoice.user}</td>
+                          <td className="py-3 px-4">${invoice.amount.toFixed(2)}</td>
+                          <td className="py-3 px-4">{invoice.description}</td>
+                          <td className="py-3 px-4">
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                invoice.status === "Paid"
+                                  ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                  : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                              }`}
+                            >
+                              {invoice.status}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4">{invoice.date}</td>
+                          <td className="py-3 px-4">{invoice.dueDate}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            ))}
-          </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
-        <TabsContent value="subscriptions" className="space-y-4">
-          {/* Subscriptions content */}
+        <TabsContent value="subscriptions">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle>Active Subscriptions</CardTitle>
+              <CardDescription>View and manage customer subscriptions.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-center h-64 bg-gray-50 dark:bg-gray-800 rounded-md">
+                <p className="text-gray-500 dark:text-gray-400">
+                  Subscription management interface will be displayed here
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
-        <TabsContent value="reports" className="space-y-4">
-          {/* Financial Reports content */}
+        <TabsContent value="reports">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle>Financial Reports</CardTitle>
+              <CardDescription>Generate and view financial reports.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-center h-64 bg-gray-50 dark:bg-gray-800 rounded-md">
+                <p className="text-gray-500 dark:text-gray-400">Financial reports interface will be displayed here</p>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

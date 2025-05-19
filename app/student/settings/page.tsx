@@ -12,11 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 export default function SettingsPage() {
   return (
     <div className="space-y-6">
-      <SectionTitle 
-        title="Settings" 
-        description="Manage your account settings and preferences"
-      />
-      
+      <SectionTitle title="Settings" description="Manage your account settings and preferences" />
+
       <Tabs defaultValue="profile" className="space-y-4">
         <TabsList>
           <TabsTrigger value="profile">Profile</TabsTrigger>
@@ -25,14 +22,12 @@ export default function SettingsPage() {
           <TabsTrigger value="privacy">Privacy</TabsTrigger>
           <TabsTrigger value="billing">Billing</TabsTrigger>
         </TabsList>
-        
+
         <TabsContent value="profile" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Profile Information</CardTitle>
-              <CardDescription>
-                Update your personal information and public profile
-              </CardDescription>
+              <CardDescription>Update your personal information and public profile</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex flex-col items-center space-y-4 sm:flex-row sm:items-start sm:space-x-4 sm:space-y-0">
@@ -47,12 +42,10 @@ export default function SettingsPage() {
                   <Button variant="ghost" size="sm">
                     Remove Photo
                   </Button>
-                  <p className="text-xs text-muted-foreground">
-                    JPG, GIF or PNG. Max size 2MB.
-                  </p>
+                  <p className="text-xs text-muted-foreground">JPG, GIF or PNG. Max size 2MB.</p>
                 </div>
               </div>
-              
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="first-name">First Name</Label>
@@ -63,19 +56,17 @@ export default function SettingsPage() {
                   <Input id="last-name" defaultValue="Johnson" />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="display-name">Display Name</Label>
                 <Input id="display-name" defaultValue="Alex J." />
-                <p className="text-xs text-muted-foreground">
-                  This is how your name will appear to other users.
-                </p>
+                <p className="text-xs text-muted-foreground">This is how your name will appear to other users.</p>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="bio">Bio</Label>
-                <Textarea 
-                  id="bio" 
+                <Textarea
+                  id="bio"
                   placeholder="Tell us about yourself..."
                   className="min-h-32"
                   defaultValue="Learning enthusiast passionate about AI and technology. Currently exploring prompt engineering and financial literacy."
@@ -84,12 +75,12 @@ export default function SettingsPage() {
                   Brief description for your profile. Maximum 200 characters.
                 </p>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
                 <Input id="location" placeholder="e.g., New York, NY" defaultValue="San Francisco, CA" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="website">Website</Label>
                 <Input id="website" placeholder="https://example.com" />
@@ -99,13 +90,11 @@ export default function SettingsPage() {
               <Button>Save Changes</Button>
             </CardFooter>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Social Profiles</CardTitle>
-              <CardDescription>
-                Connect your social media accounts
-              </CardDescription>
+              <CardDescription>Connect your social media accounts</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {[
@@ -124,30 +113,28 @@ export default function SettingsPage() {
             </CardFooter>
           </Card>
         </TabsContent>
-        
+
         <TabsContent value="account" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Account Information</CardTitle>
-              <CardDescription>
-                Update your account details and preferences
-              </CardDescription>
+              <CardDescription>Update your account details and preferences</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <Input id="email" type="email" defaultValue="alex@example.com" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
                 <Input id="username" defaultValue="alexj" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="language">Language</Label>
-                <select 
-                  id="language" 
+                <select
+                  id="language"
                   className="w-full rounded-md border border-input bg-background px-3 py-2"
                   defaultValue="en"
                 >
@@ -158,11 +145,11 @@ export default function SettingsPage() {
                   <option value="zh">Chinese</option>
                 </select>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="timezone">Timezone</Label>
-                <select 
-                  id="timezone" 
+                <select
+                  id="timezone"
                   className="w-full rounded-md border border-input bg-background px-3 py-2"
                   defaultValue="America/Los_Angeles"
                 >
@@ -178,25 +165,23 @@ export default function SettingsPage() {
               <Button>Update Account</Button>
             </CardFooter>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Change Password</CardTitle>
-              <CardDescription>
-                Update your password to keep your account secure
-              </CardDescription>
+              <CardDescription>Update your password to keep your account secure</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="current-password">Current Password</Label>
                 <Input id="current-password" type="password" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="new-password">New Password</Label>
                 <Input id="new-password" type="password" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="confirm-password">Confirm New Password</Label>
                 <Input id="confirm-password" type="password" />
@@ -206,13 +191,11 @@ export default function SettingsPage() {
               <Button>Change Password</Button>
             </CardFooter>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Danger Zone</CardTitle>
-              <CardDescription>
-                Irreversible account actions
-              </CardDescription>
+              <CardDescription>Irreversible account actions</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-md border border-destructive/50 p-4">
@@ -227,14 +210,12 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         <TabsContent value="notifications" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Notification Preferences</CardTitle>
-              <CardDescription>
-                Choose how and when you want to be notified
-              </CardDescription>
+              <CardDescription>Choose how and when you want to be notified</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
@@ -248,18 +229,14 @@ export default function SettingsPage() {
                 ].map((notification, i) => (
                   <div key={i} className="flex items-center justify-between space-x-2">
                     <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {notification.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {notification.description}
-                      </p>
+                      <p className="text-sm font-medium leading-none">{notification.name}</p>
+                      <p className="text-sm text-muted-foreground">{notification.description}</p>
                     </div>
                     <Switch defaultChecked={i < 3} />
                   </div>
                 ))}
               </div>
-              
+
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Push Notifications</h3>
                 {[
@@ -269,12 +246,8 @@ export default function SettingsPage() {
                 ].map((notification, i) => (
                   <div key={i} className="flex items-center justify-between space-x-2">
                     <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {notification.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {notification.description}
-                      </p>
+                      <p className="text-sm font-medium leading-none">{notification.name}</p>
+                      <p className="text-sm text-muted-foreground">{notification.description}</p>
                     </div>
                     <Switch defaultChecked={i < 2} />
                   </div>
@@ -285,25 +258,23 @@ export default function SettingsPage() {
               <Button>Save Preferences</Button>
             </CardFooter>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Notification Schedule</CardTitle>
-              <CardDescription>
-                Set your preferred notification times
-              </CardDescription>
+              <CardDescription>Set your preferred notification times</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="quiet-hours-start">Quiet Hours Start</Label>
                 <Input id="quiet-hours-start" type="time" defaultValue="22:00" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="quiet-hours-end">Quiet Hours End</Label>
                 <Input id="quiet-hours-end" type="time" defaultValue="08:00" />
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <Switch id="weekend-pause" />
                 <Label htmlFor="weekend-pause">Pause notifications on weekends</Label>
@@ -314,22 +285,20 @@ export default function SettingsPage() {
             </CardFooter>
           </Card>
         </TabsContent>
-        
+
         <TabsContent value="privacy" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Privacy Settings</CardTitle>
-              <CardDescription>
-                Control your privacy and visibility
-              </CardDescription>
+              <CardDescription>Control your privacy and visibility</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Profile Visibility</h3>
                 <div className="space-y-2">
                   <Label htmlFor="profile-visibility">Who can see your profile</Label>
-                  <select 
-                    id="profile-visibility" 
+                  <select
+                    id="profile-visibility"
                     className="w-full rounded-md border border-input bg-background px-3 py-2"
                     defaultValue="everyone"
                   >
@@ -340,7 +309,7 @@ export default function SettingsPage() {
                   </select>
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Learning Activity</h3>
                 {[
@@ -351,32 +320,30 @@ export default function SettingsPage() {
                 ].map((setting, i) => (
                   <div key={i} className="flex items-center justify-between space-x-2">
                     <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {setting.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {setting.description}
-                      </p>
+                      <p className="text-sm font-medium leading-none">{setting.name}</p>
+                      <p className="text-sm text-muted-foreground">{setting.description}</p>
                     </div>
                     <Switch defaultChecked />
                   </div>
                 ))}
               </div>
-              
+
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Data Usage</h3>
                 {[
-                  { name: "Learning analytics", description: "Allow us to analyze your learning patterns to improve recommendations" },
-                  { name: "Personalized content", description: "Receive personalized content based on your interests and activity" },
+                  {
+                    name: "Learning analytics",
+                    description: "Allow us to analyze your learning patterns to improve recommendations",
+                  },
+                  {
+                    name: "Personalized content",
+                    description: "Receive personalized content based on your interests and activity",
+                  },
                 ].map((setting, i) => (
                   <div key={i} className="flex items-center justify-between space-x-2">
                     <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {setting.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {setting.description}
-                      </p>
+                      <p className="text-sm font-medium leading-none">{setting.name}</p>
+                      <p className="text-sm text-muted-foreground">{setting.description}</p>
                     </div>
                     <Switch defaultChecked />
                   </div>
@@ -387,13 +354,11 @@ export default function SettingsPage() {
               <Button>Save Privacy Settings</Button>
             </CardFooter>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Data & Privacy</CardTitle>
-              <CardDescription>
-                Manage your data and privacy options
-              </CardDescription>
+              <CardDescription>Manage your data and privacy options</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-md border p-4">
@@ -405,7 +370,7 @@ export default function SettingsPage() {
                   Request Data Export
                 </Button>
               </div>
-              
+
               <div className="rounded-md border p-4">
                 <h3 className="text-lg font-medium">Privacy Policy</h3>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -418,23 +383,19 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
         </TabsContent>
-        
+
         <TabsContent value="billing" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Subscription</CardTitle>
-              <CardDescription>
-                Manage your subscription and billing details
-              </CardDescription>
+              <CardDescription>Manage your subscription and billing details</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-md bg-muted p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-medium">Pro Plan</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Billed annually
-                    </p>
+                    <p className="text-sm text-muted-foreground">Billed annually</p>
                   </div>
                   <Badge>Active</Badge>
                 </div>
@@ -463,6 +424,91 @@ export default function SettingsPage() {
                 <div className="mt-4 flex gap-2">
                   <Button variant="outline">Change Plan</Button>
                   <Button variant="outline">Cancel Subscription</Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Payment Methods</CardTitle>
+              <CardDescription>Manage your payment methods</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="rounded-md border p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="h-10 w-16 rounded-md bg-gray-100 flex items-center justify-center">
+                      <span className="font-medium">VISA</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Visa ending in 4242</p>
+                      <p className="text-sm text-muted-foreground">Expires 04/2025</p>
+                    </div>
+                  </div>
+                  <Badge>Default</Badge>
+                </div>
+                <div className="mt-4 flex gap-2">
+                  <Button variant="outline" size="sm">
+                    Edit
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    Remove
+                  </Button>
+                </div>
+              </div>
+
+              <Button variant="outline" className="w-full">
+                Add Payment Method
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Billing History</CardTitle>
+              <CardDescription>View your past invoices and payments</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b bg-muted/50">
+                        <th className="py-3 px-4 text-left font-medium">Invoice</th>
+                        <th className="py-3 px-4 text-left font-medium">Amount</th>
+                        <th className="py-3 px-4 text-left font-medium">Status</th>
+                        <th className="py-3 px-4 text-left font-medium">Date</th>
+                        <th className="py-3 px-4 text-left font-medium">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { id: "INV-001", amount: "$199.00", status: "Paid", date: "May 1, 2023" },
+                        { id: "INV-002", amount: "$199.00", status: "Paid", date: "May 1, 2022" },
+                        { id: "INV-003", amount: "$149.00", status: "Paid", date: "May 1, 2021" },
+                      ].map((invoice, i) => (
+                        <tr key={i} className="border-b">
+                          <td className="py-3 px-4">{invoice.id}</td>
+                          <td className="py-3 px-4">{invoice.amount}</td>
+                          <td className="py-3 px-4">
+                            <Badge
+                              variant="outline"
+                              className="bg-green-50 text-green-700 hover:bg-green-50 border-green-200"
+                            >
+                              {invoice.status}
+                            </Badge>
+                          </td>
+                          <td className="py-3 px-4">{invoice.date}</td>
+                          <td className="py-3 px-4">
+                            <Button variant="ghost" size="sm">
+                              Download
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </CardContent>
